@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookings Target Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe100;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 150px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        .left-column, .right-column {
+            flex: 1;
+            padding: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ec008c;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ec008c;
+        }
+
+        .results-box {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .results-box p {
+            color: #007bff;
+        }
+
+        .image {
+            max-width: 100%;
+        }
+
+        .quote-variation {
+            font-weight: bold;
+            color: #ec008c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Monthly Bookings Calculator</h1>
+    <form>
+        <label for="currentBookings">Current Bookings:</label>
+        <input type="number" id="currentBookings"><br>
+
+        <label for="conversionRate">Conversion Rate (%):</label>
+        <input type="number" id="conversionRate"><br>
+
+        <label for="targetBookings">Target Bookings:</label>
+        <input type="number" id="targetBookings"><br>
+
+        <label for="daysLeft">Days Left in Month:</label>
+        <input type="number" id="daysLeft"><br>
+    </form>
+
+    <div class="container">
+        <div class="left-column">
+            <h2>Results:</h2>
+            <p id="resultMessage"></p>
+        </div>
+        <div class="right-column">
+            <img class="image" src="Logo.png" alt="Image">
+        </div>
+    </div>
+
+    <script>
+        function calculateBookings() {
+            const current = parseFloat(document.getElementById('currentBookings').value) || 0;
+            const conversion = parseFloat(document.getElementById('conversionRate').value) || 0;
+            const target = parseFloat(document.getElementById('targetBookings').value) || 0;
+            const daysLeft = parseFloat(document.getElementById('daysLeft').value) || 0;
+
+            const projected = current * (conversion / 100);
+            const required = Math.ceil(target / (conversion / 100));
+            const needed = Math.max(0, required - current);
+            const perDay = daysLeft > 0 ? (needed / daysLeft).toFixed(2) : "N/A";
+
+            const resultEl = document.getElementById('resultMessage');
+            resultEl.innerHTML = `
+                Projected bookings: <span class="quote-variation">${projected.toFixed(1)}</span><br>
+                Bookings required to meet target: <span class="quote-variation">${required}</span><br>
+                Additional bookings needed: <span class="quote-variation">${needed}</span><br>
+                Bookings needed per day: <span class="quote-variation">${perDay}</span>
+            `;
+        }
+
+        document.querySelectorAll('input[type="number"]').forEach((input) => {
+            input.addEventListener('input', calculateBookings);
+        });
+    </script>
+</body>
+</html>
