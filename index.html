@@ -92,17 +92,23 @@
             margin: 20px auto;
         }
 
-        .results-box p {
-            color: #007bff;
-        }
-
-        .image {
-            max-width: 100%;
+        .result-line {
+            font-size: 18px;
+            padding: 12px;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 6px solid #007bff;
+            text-align: left;
         }
 
         .quote-variation {
             font-weight: bold;
             color: #ec008c;
+        }
+
+        .image {
+            max-width: 100%;
         }
     </style>
 </head>
@@ -128,7 +134,7 @@
     <div class="container">
         <div class="left-column">
             <h2>Results:</h2>
-            <p id="resultMessage"></p>
+            <div id="resultMessage"></div>
         </div>
         <div class="right-column">
             <img class="image" src="Logo.png" alt="Image">
@@ -150,10 +156,10 @@
 
             const resultEl = document.getElementById('resultMessage');
             resultEl.innerHTML = `
-                Projected monthly bookings: <span class="quote-variation">${projected.toFixed(1)}</span><br>
-                Overall incomming calls required to meet target: <span class="quote-variation">${neededTotal}</span><br>
-                Overall bookings needed to meet target: <span class="quote-variation">${neededBookings}</span><br>
-                Bookings needed per day: <span class="quote-variation">${perDay}</span>
+                <div class="result-line">📈 Projected monthly bookings: <span class="quote-variation">${projected.toFixed(1)}</span></div>
+                <div class="result-line">📞 Incoming calls required to meet target: <span class="quote-variation">${neededTotal}</span></div>
+                <div class="result-line">🎯 Bookings still needed to meet target: <span class="quote-variation">${neededBookings}</span></div>
+                <div class="result-line">📅 Bookings needed per day: <span class="quote-variation">${perDay}</span></div>
             `;
         }
 
