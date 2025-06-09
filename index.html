@@ -140,15 +140,15 @@
             const daysLeft = parseFloat(document.getElementById('daysLeft').value) || 0;
 
             const projected = current * (conversion / 100);
-            const required = Math.ceil(target / (conversion / 100));
-            const needed = Math.max(0, required - current);
-            const perDay = daysLeft > 0 ? (needed / daysLeft).toFixed(2) : "N/A";
+            const neededTotal = Math.ceil(neededTotal / (conversion / 100));
+            const neededBookings = Math.max(0, target - current);
+            const perDay = daysLeft > 0 ? (neededBookings / daysLeft).toFixed(2) : "N/A";
 
             const resultEl = document.getElementById('resultMessage');
             resultEl.innerHTML = `
                 Projected bookings: <span class="quote-variation">${projected.toFixed(1)}</span><br>
-                Bookings required to meet target: <span class="quote-variation">${required}</span><br>
-                Additional bookings needed: <span class="quote-variation">${needed}</span><br>
+                Incomming calls required to meet target: <span class="quote-variation">${neededTotal}</span><br>
+                Additional bookings needed: <span class="quote-variation">${neededBookings}</span><br>
                 Bookings needed per day: <span class="quote-variation">${perDay}</span>
             `;
         }
