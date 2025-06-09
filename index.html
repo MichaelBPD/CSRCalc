@@ -118,6 +118,9 @@
         <label for="targetBookings">Target Bookings:</label>
         <input type="number" id="targetBookings"><br>
 
+        <label for="daysDone">Days Completed so far in Month:</label>
+        <input type="number" id="daysLeft"><br>
+        
         <label for="daysLeft">Days Left in Month:</label>
         <input type="number" id="daysLeft"><br>
     </form>
@@ -137,18 +140,19 @@
             const current = parseFloat(document.getElementById('currentBookings').value) || 0;
             const conversion = parseFloat(document.getElementById('conversionRate').value) || 0;
             const target = parseFloat(document.getElementById('targetBookings').value) || 0;
+            const daysDone = parseFloat(document.getElementById('daysDone').value) || 0;
             const daysLeft = parseFloat(document.getElementById('daysLeft').value) || 0;
 
-            const projected = current * (conversion / 100);
-            const neededTotal = Math.ceil(neededTotal / (conversion / 100));
+            const projected = current / daysDone * (daysDone + daysLeft);
+            const neededTotal = Math.ceil(neededBookings / (conversion / 100));
             const neededBookings = Math.max(0, target - current);
             const perDay = daysLeft > 0 ? (neededBookings / daysLeft).toFixed(2) : "N/A";
 
             const resultEl = document.getElementById('resultMessage');
             resultEl.innerHTML = `
-                Projected bookings: <span class="quote-variation">${projected.toFixed(1)}</span><br>
-                Incomming calls required to meet target: <span class="quote-variation">${neededTotal}</span><br>
-                Additional bookings needed: <span class="quote-variation">${neededBookings}</span><br>
+                Projected monthly bookings: <span class="quote-variation">${projected.toFixed(1)}</span><br>
+                Overall incomming calls required to meet target: <span class="quote-variation">${neededTotal}</span><br>
+                Overall bookings needed to meet target: <span class="quote-variation">${neededBookings}</span><br>
                 Bookings needed per day: <span class="quote-variation">${perDay}</span>
             `;
         }
