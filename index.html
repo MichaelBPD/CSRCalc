@@ -144,8 +144,8 @@
             const daysLeft = parseFloat(document.getElementById('daysLeft').value) || 0;
 
             const projected = current / daysDone * (daysDone + daysLeft);
-            const neededTotal = Math.ceil(neededBookings / (conversion / 100));
             const neededBookings = Math.max(0, target - current);
+            const neededTotal = Math.ceil(neededBookings / (conversion / 100));
             const perDay = daysLeft > 0 ? (neededBookings / daysLeft).toFixed(2) : "N/A";
 
             const resultEl = document.getElementById('resultMessage');
